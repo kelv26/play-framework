@@ -1,4 +1,4 @@
-# Simple PLAY Framework v2.8.x TODO List Scala Application
+# Simple TODO List Scala Web Application (PLAY Framework v2.8.2)
 
 ## About
  This repository is created to help people who are new to PLAY framework to get started with a simple todolist app. The [documentation](https://www.playframework.com/documentation/2.0.4/ScalaTodoList) is outdated and the code is not working with PLAY Framework v2.8.x, therefore this is an updated version to assist some people who are struggling with it. The key changes are the library dependencies required for the project that can be seen in `todolist/build.sbt` followed by some minor code syntax changes.
