@@ -1,19 +1,29 @@
 package models
 
+import anorm._
+import anorm.SqlParser._
+import javax.inject.Inject
+import play.api.db.Database
+
 case class Task(id: Long, label: String)
 
-object Task {
-  private var tasks = Seq.empty[Task]
-  private var currentId: Long = 1
+class TaskRepository @Inject()(db: Database) {
 
-  def getAllTasks(): Seq[Task] = tasks
+  val taskParser: RowParser[Task] = Macro.namedParser[Task]
 
-  def create(label: String): Unit = {
-    tasks = tasks :+ Task(currentId, label)
-    currentId += 1
+  def all(): List[Task] = db.withConnection { implicit c =>
+    SQL("select * from task").as(taskParser.*)
   }
 
-  def delete(id: Long): Unit = {
-    tasks = tasks.filterNot(_.id == id)
+  def create(label: String): Unit = db.withConnection { implicit c =>
+    SQL("insert into task (label) values ({label})").on(
+      'label -> label
+    ).executeUpdate()
+  }
+
+  def delete(id: Long): Unit = db.withConnection { implicit c =>
+    SQL("delete from task where id = {id}").on(
+      'id -> id
+    ).executeUpdate()
   }
 }
