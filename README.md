@@ -1,37 +1,26 @@
-# Play Hello World Web Tutorial for Java
+# Simple PLAY Framework v2.8.x TODO List Scala Application
 
-To follow the steps in this tutorial, you will need the correct version of Java and sbt. The tutorial requires:
+## About
+ This repository is created to help people who are new to PLAY framework to get started with a simple todolist app. The [documentation](https://www.playframework.com/documentation/2.0.4/ScalaTodoList) is outdated and the code is not working, therefore this is an updated version to assist some people who are struggling with it. The key changes are the library dependencies required for the project that can be seen in `todolist/build.sbt` followed by some minor code syntax changes.
 
-* Java Software Developer's Kit (SE) 1.8 or higher
-* sbt 0.13.18 or higher (we recommend 1.7.2). Note: if you downloaded this project as a zip file from https://developer.lightbend.com, the file includes an sbt distribution for your convenience.
+## Requirements
 
-To check your Java version, enter the following in a command window:
-
-```bash
-java -version
-```
-
-To check your sbt version, enter the following in a command window:
-
-```bash
-sbt sbtVersion
-```
-
-If you do not have the required versions, follow these links to obtain them:
-
-* [Java SE](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* [sbt](http://www.scala-sbt.org/download.html)
+- Java 8 or later
+- SBT 1.3.13 or later
 
 ## Build and run the project
 
-This example Play project was created from a seed template. It includes all Play components and an Akka HTTP server. The project is also configured with filters for Cross-Site Request Forgery (CSRF) protection and security headers.
-
 To build and run the project:
 
-1. Use a command window to change into the example project directory, for example: `cd play-java-hello-world-tutorial`
+1. Use a command window to change into the example project directory, for example: `cd todolist`
 
 2. Build the project. Enter: `sbt run`. The project builds and starts the embedded HTTP server. Since this downloads libraries and dependencies, the amount of time required depends partly on your connection's speed.
 
 3. After the message `Server started, ...` displays, enter the following URL in a browser: <http://localhost:9000>
 
-The Play application responds: `Welcome to the Hello World Tutorial!`
+The Play application will start up.<br>
+
+## Functionalities
+- Enter a task in the input field and click the **Add** button. <br>
+- The task will be added to the list. You can add as many tasks as you want. <br>
+- To delete a task, click the **Delete** button next to it.
