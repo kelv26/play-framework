@@ -1,5 +1,7 @@
 package controllers
 
+import akka.actor.{ActorSystem, Props}
+
 import javax.inject._
 import play.api._
 import play.api.mvc._
@@ -13,9 +15,15 @@ import models.TaskRepository
  * application's home page.
  */
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents , taskRepository: TaskRepository)
+class HomeController @Inject()(
+                                cc: ControllerComponents ,
+                                taskRepository: TaskRepository,
+                                actorSystem: ActorSystem
+                              )
     extends AbstractController(cc)
     with play.api.i18n.I18nSupport {
+
+  private val taskActor = actorSystem.actorOf(Props(new TaskActor(taskRepository)))
 
   /**
    * Create an Action to render an HTML page.
@@ -41,14 +49,14 @@ class HomeController @Inject()(cc: ControllerComponents , taskRepository: TaskRe
   taskForm.bindFromRequest.fold(
     errors => BadRequest(views.html.index(taskRepository.all(), errors)),
     label => {
-      taskRepository.create(label)
+      taskActor! TaskActor.CreateTask(label)
       Redirect(routes.HomeController.tasks)
     }
   )
 }
 
   def deleteTask(id: Long) = Action {
-    taskRepository.delete(id)
+    taskActor ! TaskActor.DeleteTask(id)
     Redirect(routes.HomeController.tasks)
   }
 }

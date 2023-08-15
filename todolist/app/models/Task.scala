@@ -17,13 +17,13 @@ class TaskRepository @Inject()(db: Database) {
 
   def create(label: String): Unit = db.withConnection { implicit c =>
     SQL("insert into task (label) values ({label})").on(
-      'label -> label
+      Symbol("label") -> label
     ).executeUpdate()
   }
 
   def delete(id: Long): Unit = db.withConnection { implicit c =>
     SQL("delete from task where id = {id}").on(
-      'id -> id
+      Symbol("id") -> id
     ).executeUpdate()
   }
 }
